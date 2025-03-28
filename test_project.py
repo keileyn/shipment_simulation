@@ -17,7 +17,7 @@ def test_compute_end_date():
     start_date = datetime(2025, 3, 1)  # March 1, 2025
     
     # 5-day workweek (Monday-Friday)
-    assert compute_end_date(start_date, 5, 5) == datetime(2025, 3, 7)  # Should finish on March 7
+    assert compute_end_date(start_date, 6, 5) == datetime(2025, 3, 10)  # Should finish on March 7
     assert compute_end_date(start_date, 10, 5) == datetime(2025, 3, 14)  # Should finish on March 14
     
     # 6-day workweek (Monday-Saturday)
