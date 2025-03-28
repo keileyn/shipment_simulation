@@ -167,8 +167,6 @@ class ShipmentSImulation:
             self.total_days_label.config(text="Error: Invalid input, Please check your input.")
             self.completion_date_label.config(text="")
 
-
-
 """ This part is the formulas for the shipment simulation calculations"""
 
 def compute_daily_output(hourly_output, hours_per_shift):
