@@ -223,4 +223,4 @@ def compute_end_date(start_date, total_work_days, work_days_in_a_week):
     return current_date
 
 if __name__ =="__main__":
-    shipment_simulation = ShipmentSImulation()
+    shipment_simulation = ShipmentSimulation()
