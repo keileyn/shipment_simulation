@@ -4,23 +4,23 @@
 ## Overview
 Shipment Simulation is a Python-based application designed to assist production planners, supply chain managers, and manufacturers in estimating the completion date of a shipment based on various work schedules. By inputting key manufacturing details, users can quickly determine production timelines and optimize scheduling decisions.
 
-This tool provides a user-friendly graphical interface using **Tkinter** and includes a **tkcalendar** widget for date selection. The application also integrates **Pillow** for handling images. Users can enter product-specific details such as the total production quantity, hourly production rate, work shift details, and the number of working days per week. The system then calculates the estimated completion date while accounting for weekends in 5-day and 6-day work weeks.
+This tool provides a user-friendly graphical interface using **Tkinter** and includes a **tkcalendar** widget for date selection. The application also integrates **Pillow** for handling images. Users can enter product-specific details such as the total production quantity, hourly production rate, hours per shift details, and the number of working days per week. The system then calculates the estimated completion date while accounting for weekends in 5-day and 6-day work weeks.
 
 ## Features
-- **Intuitive GUI**: Built with Tkinter, the interface is clean and easy to navigate.
+- **Intuitive GUI**: Built with Tkinter, the interface is clean and easy to navigate and use.
 - **Automated Production Timeline Calculation**: Computes daily output, total required workdays, and estimated completion dates.
-- **Configurable Work Schedules**: Supports work weeks of 5, 6, or 7 days.
-- **Error Handling**: Ensures users input valid numerical values and select appropriate dates.
+- **Configurable Work Schedules**: Supports work weeks of 5, 6, or 7 days (Since other companies decides if what work-week schedule would be the best to achieve the target shipment date).
+- **Error Handling**: Ensures users input valid numerical values and select appropriate dates using **tkcalendar**.
 - **Lightweight & Fast Execution**: The program is designed to be efficient and run smoothly on most systems.
 
 ## Project Structure
 The project consists of the following key files:
 
-1. **project.py** - This is the main script containing the graphical user interface and all core business logic. It manages user inputs, calculations, and result displays.
-2. **bg.jpg** - A background image used to enhance the visual appeal of the application.
-3. **test_project.py** - A Python script that employs `pytest` to test the core functions of the application, ensuring reliability and correctness.
+1. **project.py** - This is the main script/code containing the graphical user interface and all core business logic. It manages user inputs, calculations, and the result displays.
+2. **logo.jpg** - A background image used to enhance the visual appeal of the application. The developer can modify the **project.py** if they have different logo that needs to be used.
+3. **test_project.py** - A Python script/code that employs `pytest` to test the core functions of the application, ensuring reliability and correctness in the calculations.
 4. **requirements.txt** - A file listing the dependencies needed to run the project smoothly.
-5. **README.md** -  A file consist of the whole explanation of the project
+5. **README.md** -  A file consist of the whole explanation of the project.
 
 ## Code Breakdown
 The project is structured around a central class:
