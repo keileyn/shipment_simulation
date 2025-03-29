@@ -6,7 +6,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkcalendar import DateEntry
 from tkinter import messagebox
-from PIL import ImageTk
+from PIL import Image, ImageTk
 
 class ShipmentSImulation:
     def __init__(self):
@@ -21,10 +21,15 @@ class ShipmentSImulation:
         # Command for the close button
         self.closebtn = tk.Menu(self.main_window)
         self.closebtn.add_command(label="Close", command=self.on_closing)
-
-        img = ImageTk.PhotoImage(file=os.path.join(os.path.dirname(__file__), "bg.jpg"))
+        
+        # Command for the logo image
+        img_path = os.path.join(os.path.dirname(__file__), "logo.jpg")
+        img = Image.open(img_path)
+        resized_img = img.resize ((200,200))
+        img = ImageTk.PhotoImage(resized_img)
         panel = tk.Label(self.main_window, image=img, bg="#ffffff")
-        panel.pack(side="top", anchor="center", padx=10, pady=10)
+        panel.image = img
+        panel.pack(side="top", anchor="n", padx=5, pady=5)
 
 
         """" This part is for the Main Frame"""
