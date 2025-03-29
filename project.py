@@ -1,14 +1,16 @@
 # Work by Esconde, Kharlein Kaye B.
 
+# Standard library imports
 import os
 from datetime import datetime, timedelta
+# Tkinter imports
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
+# Third-party library imports
 from tkcalendar import DateEntry
-from tkinter import messagebox
 from PIL import Image, ImageTk
 
-class ShipmentSImulation:
+class ShipmentSimulation:
     def __init__(self):
         """Initializes the main window and frame of the GUI."""
         self.main_window = tk.Tk()
@@ -135,9 +137,7 @@ class ShipmentSImulation:
         label = tk.Label(parent, text=label_text, font=("Arial", 12), bg="#ffffff")
         label.grid(row=row, column=column, sticky="w", padx=10, pady=5)
         return label
-    
-
-            
+             
     def on_closing(self):
         """ This function will ask the user if they want to quit the application."""
         if messagebox.askokcancel(title="Quit", message="Do you want to quit?"):
@@ -171,6 +171,10 @@ class ShipmentSImulation:
             self.product_name_label.config(text="")
             self.total_days_label.config(text="Error: Invalid input, Please check your input.")
             self.completion_date_label.config(text="")
+        except ZeroDivisionError:
+            self.product_name_label.config(text="")
+            self.total_days_label.config(text="Error: Invalid input, Please check and value cannot be zero.")
+            self.completion_date_label.config(text="")
 
 """ This part is the formulas for the shipment simulation calculations"""
 
@@ -182,6 +186,9 @@ def compute_daily_output(hourly_output, hours_per_shift):
 def compute_total_work_days(total_plan, daily_output):
     """Calculates the total work days needed to complete the total plan.
     Total work days = total plan / daily output"""
+
+    if daily_output == 0:
+        raise ZeroDivisionError()
 
     total_days = total_plan // daily_output
 

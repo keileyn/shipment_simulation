@@ -26,16 +26,15 @@ The project consists of the following key files:
 The project is structured around a central class:
 
 ### `ShipmentSimulation` Class
-- Manages the GUI layout and event handling.
+- It manages the GUI layout and event handling.
 - Organizes input fields for production parameters.
 - Implements the computation of completion dates based on different work schedules.
-- Provides real-time updates to ensure users can see instant feedback on their inputs.
+- It provides real-time updates to ensure users can see instant feedback on their inputs.
 
 ### Key Functions
-- `compute_daily_output(hourly_output, hours_per_shift)`: Calculates daily production output.
-- `compute_total_work_days(total_plan, daily_output)`: Determines the number of workdays required to meet production goals.
-- `compute_end_date(start_date, total_work_days, work_days_in_a_week)`: Computes the estimated completion date, accounting for the number of working days in a week.
-- `validate_inputs()`: Ensures all user inputs are properly formatted and within reasonable ranges.
+- `compute_daily_output(hourly_output, hours_per_shift)`: This calculates daily production output by multiplying the hourly output to the hours per shift.
+- `compute_total_work_days(total_plan, daily_output)`: It determines the number of workdays required to meet production goals. This can calculate by the total production plan divided by the daily output, and if the number has a remainder, the total work days will add extra number.
+- `compute_end_date(start_date, total_work_days, work_days_in_a_week)`: Computes the estimated completion date, accounting for the number of working days in a week. It first set a counter for the number of days and using while loop, it iterates through calendar days, counting only valid workdays while skipping weekends based on the specified schedule. If the workweek consists of 5 days, only Monday to Friday are counted; for a 6-day workweek, Monday to Saturday are included, excluding Sundays; and for a 7-day workweek, every day is counted. The function increments the date until the required number of workdays is reached, at which point it returns the final computed end date.
 
 ## Installation & Usage
 To run the application, follow these steps:
@@ -48,12 +47,12 @@ To run the application, follow these steps:
    ```sh
    python project.py
    ```
-3. Input production details and click **Simulate** to calculate the estimated completion date.
+3. Input production details and click **Simulate** to calculate the total work days and estimated completion date.
 
 ## Design Decisions
-The decision to use Tkinter for the GUI was based on its simplicity and built-in support in Python, which allows for easy deployment. The **tkcalendar** library was chosen to facilitate intuitive date selection, reducing the likelihood of user input errors. The application’s flexibility in supporting different work schedules (5, 6, or 7-day weeks) ensures adaptability for various manufacturing setups.
+The decision to use **Tkinter** for the GUI was based on its simplicity and built-in support in Python, which allows for easy deployment. The **tkcalendar** library was chosen to facilitate intuitive date selection, reducing the likelihood of user input errors. The application’s flexibility in supporting different work schedules (5, 6, or 7-day weeks) ensures adaptability for various manufacturing setups.
 
-Additionally, the decision to include **Pillow** allows for seamless integration of images, making the UI visually appealing without significantly impacting performance. The modular approach of the script makes it easy to extend with additional features in the future.
+Additionally, the decision to include **Pillow** allows for seamless integration of images, specifically, either logo of the company, making the UI visually appealing without significantly impacting performance. The modular approach of the script makes it easy to extend with additional features in the future.
 
 ## Future Enhancements
 Several improvements are planned for future releases:
