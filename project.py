@@ -196,18 +196,14 @@ class ShipmentSimulation:
             return
 
         # If there's no errors, proceed with calculations
-        try: 
-            daily_output = compute_daily_output(hourly_output, hours_per_shift)
-            total_work_days = compute_total_work_days(total_plan, daily_output)
-            completion_date = compute_end_date(start_date, total_work_days, work_days_in_a_week)
+        daily_output = compute_daily_output(hourly_output, hours_per_shift)
+        total_work_days = compute_total_work_days(total_plan, daily_output)
+        completion_date = compute_end_date(start_date, total_work_days, work_days_in_a_week)
 
-            self.product_name_label.config(text=f"Product Name: {product_name}")
-            self.total_days_label.config(text=f"Total Days of Manufacturing: {total_work_days}")
-            self.completion_date_label.config(text=f"Completion Date: {completion_date.strftime('%B %d, %Y')}")
-        except ZeroDivisionError:
-            self.product_name_label.config(text="")
-            self.total_days_label.config(text="Error: Please check your input.")
-            self.completion_date_label.config(text="")
+        self.product_name_label.config(text=f"Product Name: {product_name}")
+        self.total_days_label.config(text=f"Total Days of Manufacturing: {total_work_days}")
+        self.completion_date_label.config(text=f"Completion Date: {completion_date.strftime('%B %d, %Y')}")
+    
 
 """ This part is the formulas for the shipment simulation calculations"""
 
@@ -219,9 +215,6 @@ def compute_daily_output(hourly_output, hours_per_shift):
 def compute_total_work_days(total_plan, daily_output):
     """Calculates the total work days needed to complete the total plan.
     Total work days = total plan / daily output"""
-
-    if daily_output == 0:
-        raise ZeroDivisionError()
 
     total_days = total_plan // daily_output
 
