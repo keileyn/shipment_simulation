@@ -3,9 +3,11 @@
 # Standard library imports
 import os
 from datetime import datetime, timedelta
+
 # Tkinter imports
 import tkinter as tk
 from tkinter import ttk, messagebox
+
 # Third-party library imports
 from tkcalendar import DateEntry
 from PIL import Image, ImageTk
@@ -13,8 +15,10 @@ from PIL import Image, ImageTk
 class ShipmentSimulation:
     def __init__(self):
         """Initializes the main window and frame of the GUI."""
+        
         self.main_window = tk.Tk()
         self.main_window.title("Shipment Simulation")
+        
         # Set the background color to match the logo image
         self.main_window.configure(bg="#ffffff") 
         # Set the size of the main window not be resizable
@@ -50,38 +54,30 @@ class ShipmentSimulation:
     
     def create_shipment_info(self):
         """ This will create the shipment information section in the GUI"""
+        
         # Shipment Information Frame  
         shipment_info_frame = tk.LabelFrame(self.frame, text="Shipment Information:", font=("Arial", 18), bg="#ffffff")
         shipment_info_frame.grid(row=0, column=0, sticky="news", padx=20, pady=10)
-
         # Product Name Label (row 0, column 0), Product Name Entry (row 1, column 0)
         self.product_name_entry = self.create_labels_with_entries(shipment_info_frame, "Product Name:", 0, 0 )
-       
         # Total Production Plan Label (row 0, column 1), Total Production Plan Entry (row 1, column 1)
         self.total_plan_entry = self.create_labels_with_entries(shipment_info_frame, "Total Production Plan:", 0, 1, initial_value="0")
-
-
         # Target Date of Manufacturing Label (row 2, column 0), Target Date of Manufacturing Entry (row 3, column 0)
         self.start_date_entry = self.create_labels_with_date_entry(shipment_info_frame, "Target Date of Manufacturing (MM-DD-YYYY):", 2, 0)
-
         # Hourly Output Label (row 2, column 1), Hourly Output Entry (row 3, column 1)
         self.hourly_output_entry = self.create_labels_with_entries(shipment_info_frame, "Hourly Output (units/hr):", 2, 1, initial_value="0")
-     
-
         # Hours per Shift Label (row 4, column 0), Hours per Shift Entry (row 5, column 0)
         self.hours_per_shift_entry = self.create_labels_with_entries(shipment_info_frame, "Hours per Shift (hrs):", 4, 0, initial_value="0")
-
-
         # Days in a Week Label (row 4, column 1), Days in a Week Entry (row 5, column 1)
         self.days_in_week_entry = self.create_labels_with_combobox(shipment_info_frame, "Days in a Week:", 4, 1, ["5", "6", "7"], initial_value="5")
    
-        
         # Simulate Button
         self.simulate_button = tk.Button(shipment_info_frame, text="Simulate", font=("Arial", 12), command=self.run_simulation)
         self.simulate_button.grid(row=6, column=0, columnspan=2, pady=20)
     
     def create_result_info(self):
         """ This function will create the result information section in the GUI."""
+        
         # Result Information Frame
         result_info_frame = tk.LabelFrame(self.frame, text="Result Information:", font=("Arial", 18), bg="#ffffff")
         result_info_frame.grid(row=1, column=0, sticky="news", padx=20, pady=10)
@@ -145,35 +141,72 @@ class ShipmentSimulation:
 
     def run_simulation(self):
         """ This function will run the simulation and display the results."""
+        
+        # Validate the input fields and show error messages if any field is invalid
+        # Initialize an empty list to store error messages
+        errors = []
+        
+        product_name = self.product_name_entry.get().strip()
+        if not product_name:
+            errors.append("product name is required.")
+
         try:
-            # Geting the users input
+            total_plan = int(self.total_plan_entry.get().replace(",", ""))
+            if total_plan <= 0:
+                errors.append("total production plan must be greater than zero.")
+        except ValueError:
+            errors.append("total production plan must be a valid number.")
 
-            product_name = self.product_name_entry.get()
-            total_plan = int(self.total_plan_entry.get().replace(",", ""))  # Remove commas for conversion
-            start_date_str = self.start_date_entry.get()
-            hourly_output = int(self.hourly_output_entry.get().replace(",", ""))
-            hours_per_shift = int(self.hours_per_shift_entry.get().replace(",", ""))
-            work_days_in_a_week = int(self.days_in_week_entry.get())
-            
-            # Converts the start date string to a datetime object
+        start_date_str = self.start_date_entry.get()
+        try:
             start_date = datetime.strptime(start_date_str, "%m-%d-%Y")
+        except ValueError:
+            errors.append("date format must be in 'MM-DD-YYYY'.")
 
-            # Performs calculations using the separate functions
+        try:
+            hourly_output = int(self.hourly_output_entry.get().replace(",", ""))
+            if hourly_output <= 0:
+                errors.append("hourly output must be greater than zero.")
+        except ValueError:
+            errors.append("hourly output must be a valid number.")
+
+        try:
+            hours_per_shift = int(self.hours_per_shift_entry.get().replace(",", ""))
+            if hours_per_shift <= 0:
+                errors.append("hours per shift must be greater than zero.")
+        except ValueError:
+            errors.append("hours per shift must be a valid number.")
+
+        try:
+            work_days_in_a_week = int(self.days_in_week_entry.get())
+            if work_days_in_a_week not in [5, 6, 7]:
+                errors.append("work days must be 5, 6, or 7.")
+        except ValueError:
+            errors.append("work days must be a valid number.")
+
+        if errors:
+            if len(errors) == 1:
+                error_message = errors[0]  # Show the single error message
+            else:
+                error_message = "please check your input."
+            
+            self.product_name_label.config(text="")
+            self.total_days_label.config(text=f"Error: Invalid input, {error_message}")
+            self.completion_date_label.config(text="")
+            return
+
+        # If there's no errors, proceed with calculations
+        try: 
             daily_output = compute_daily_output(hourly_output, hours_per_shift)
             total_work_days = compute_total_work_days(total_plan, daily_output)
             completion_date = compute_end_date(start_date, total_work_days, work_days_in_a_week)
 
-            # Display the results in the GUI
             self.product_name_label.config(text=f"Product Name: {product_name}")
             self.total_days_label.config(text=f"Total Days of Manufacturing: {total_work_days}")
             self.completion_date_label.config(text=f"Completion Date: {completion_date.strftime('%B %d, %Y')}")
-        except ValueError:
-            self.product_name_label.config(text="")
-            self.total_days_label.config(text="Error: Invalid input, Please check your input.")
-            self.completion_date_label.config(text="")
         except ZeroDivisionError:
             self.product_name_label.config(text="")
-            self.total_days_label.config(text="Error: Invalid input, Please check and value cannot be zero.")
+            self.total_days_label.config(text="Error: Please check your input.")
             self.completion_date_label.config(text="")
 
 """ This part is the formulas for the shipment simulation calculations"""
