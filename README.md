@@ -1,8 +1,8 @@
-# Shipment Simulation
+# Shipment Simulation Calculator
 #### Video Demo: <URL HERE>
 
 ## Overview
-Shipment Simulation is a Python-based application designed to assist production planners, supply chain managers, and manufacturers in estimating the completion date of a shipment based on various work schedules. By inputting key manufacturing details, users can quickly determine production timelines and optimize scheduling decisions.
+Shipment Simulation Calculator is a Python-based application designed to assist production planners, supply chain managers, and manufacturers in estimating the completion date of a shipment based on various work schedules. By inputting key manufacturing details, users can quickly determine production timelines and optimize scheduling decisions.
 
 This tool provides a user-friendly graphical interface using **Tkinter** and includes a **tkcalendar** widget for date selection. The application also integrates **Pillow** for handling images. Users can enter product-specific details such as the total production quantity, hourly production rate, hours per shift details, and the number of working days per week. The system then calculates the estimated completion date while accounting for weekends in 5-day and 6-day work weeks.
 
@@ -57,13 +57,11 @@ Additionally, the decision to include **Pillow** allows for seamless integration
 ## Future Enhancements
 Several improvements are planned for future releases:
 - **Exporting Reports**: Allow users to save results in CSV or Excel format.
-- **Real-time Data Visualization**: Display graphical representations of production progress.
 - **Enhanced UI**: Introduce additional themes and styling options for a better user experience.
-- **Cloud Integration**: Enable users to store and retrieve production data from cloud-based platforms.
 - **Multi-language Support**: Provide options for different languages to make the application more accessible to global users.
 
 ## Author
 **Kharlein Kaye B. Esconde**
 
-This README.md provides a comprehensive guide to the **Shipment Simulation** project, ensuring clarity and usability for developers and end-users alike. The project is designed with scalability in mind, ensuring future improvements can be implemented seamlessly.
+This README.md provides a comprehensive guide to the **Shipment Simulation Calculator** project, ensuring clarity and usability for developers and end-users alike. The project is designed with scalability in mind, ensuring future improvements can be implemented seamlessly.
 

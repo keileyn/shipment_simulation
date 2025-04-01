@@ -16,7 +16,6 @@ class ShipmentSimulationCalc:
     def __init__(self):
         
         """Initializes the main window and frame of the GUI."""
-        
         self.main_window = tk.Tk()
         self.main_window.title("Shipment Simulation")
         
