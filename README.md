@@ -1,5 +1,5 @@
 # Shipment Simulation Calculator
-#### Video Demo: <URL HERE>
+#### Video Demo: <https://youtu.be/-DJeKtvz_hc>
 
 ## Overview
 Shipment Simulation Calculator is a Python-based application designed to assist production planners, supply chain managers, and manufacturers in estimating the completion date of a shipment based on various work schedules. By inputting key manufacturing details, users can quickly determine production timelines and optimize scheduling decisions.
