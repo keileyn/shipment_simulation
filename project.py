@@ -13,11 +13,11 @@ from tkcalendar import DateEntry
 from PIL import Image, ImageTk
 
 class ShipmentSimulationCalc:
-    def __init__(self):
+    def __init__(self, main_window):
         
         """Initializes the main window and frame of the GUI."""
-        self.main_window = tk.Tk()
-        self.main_window.title("Shipment Simulation")
+        self.main_window = main_window
+        self.main_window.title("Shipment Simulation Calculator")
         
         # Set the background color to match the logo image
         self.main_window.configure(bg="#ffffff") 
@@ -51,7 +51,6 @@ class ShipmentSimulationCalc:
         self.create_shipment_info()
         self.create_result_info() 
         self.main_window.protocol("WM_DELETE_WINDOW", self.on_closing) # Command for the close button
-        self.main_window.mainloop()
     
     def create_shipment_info(self):
         
@@ -255,5 +254,10 @@ def compute_end_date(start_date, total_work_days, work_days_in_a_week):
 
     return current_date
 
+def main():
+    root = tk.Tk()
+    shipment_simulation = ShipmentSimulationCalc(root)
+    root.mainloop()
+
 if __name__ =="__main__":
-    shipment_simulation = ShipmentSimulationCalc()
+    main()
