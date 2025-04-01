@@ -256,7 +256,7 @@ def compute_end_date(start_date, total_work_days, work_days_in_a_week):
 
 def main():
     root = tk.Tk()
-    shipment_simulation = ShipmentSimulationCalc(root)
+    ShipmentSimulationCalc(root)
     root.mainloop()
 
 if __name__ =="__main__":
