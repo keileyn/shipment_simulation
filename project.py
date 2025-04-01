@@ -12,8 +12,9 @@ from tkinter import ttk, messagebox
 from tkcalendar import DateEntry
 from PIL import Image, ImageTk
 
-class ShipmentSimulation:
+class ShipmentSimulationCalc:
     def __init__(self):
+        
         """Initializes the main window and frame of the GUI."""
         
         self.main_window = tk.Tk()
@@ -38,7 +39,7 @@ class ShipmentSimulation:
         panel.pack(side="top", anchor="n", padx=5, pady=5)
 
 
-        """" This part is for the Main Frame"""
+        # This part is for the Main Frame of the GUI
         self.frame = tk.Frame(self.main_window, bg="#ffffff") 
         self.frame.pack()
        
@@ -46,6 +47,7 @@ class ShipmentSimulation:
         self.create_GUI()
     
     def create_GUI(self):
+        
         """ This function will create the main GUI window and components"""
         self.create_shipment_info()
         self.create_result_info() 
@@ -53,22 +55,22 @@ class ShipmentSimulation:
         self.main_window.mainloop()
     
     def create_shipment_info(self):
-        """ This will create the shipment information section in the GUI"""
         
+        """ This will create the shipment information section in the GUI"""
         # Shipment Information Frame  
         shipment_info_frame = tk.LabelFrame(self.frame, text="Shipment Information:", font=("Arial", 18), bg="#ffffff")
         shipment_info_frame.grid(row=0, column=0, sticky="news", padx=20, pady=10)
-        # Product Name Label (row 0, column 0), Product Name Entry (row 1, column 0)
+        # Product Name Label and Entry (row 0-1, column 0)
         self.product_name_entry = self.create_labels_with_entries(shipment_info_frame, "Product Name:", 0, 0 )
-        # Total Production Plan Label (row 0, column 1), Total Production Plan Entry (row 1, column 1)
+        # Total Production Plan Label and Entry (row 0-1, column 1)
         self.total_plan_entry = self.create_labels_with_entries(shipment_info_frame, "Total Production Plan:", 0, 1, initial_value="0")
-        # Target Date of Manufacturing Label (row 2, column 0), Target Date of Manufacturing Entry (row 3, column 0)
+        # Target Date of Manufacturing Label and Entry (row 2-3, column 0)
         self.start_date_entry = self.create_labels_with_date_entry(shipment_info_frame, "Target Date of Manufacturing (MM-DD-YYYY):", 2, 0)
-        # Hourly Output Label (row 2, column 1), Hourly Output Entry (row 3, column 1)
+        # Hourly Output Label and Entry (row 2-3, column 1)
         self.hourly_output_entry = self.create_labels_with_entries(shipment_info_frame, "Hourly Output (units/hr):", 2, 1, initial_value="0")
-        # Hours per Shift Label (row 4, column 0), Hours per Shift Entry (row 5, column 0)
+        # Hours per Shift Label and Entry (row 4-5, column 0)
         self.hours_per_shift_entry = self.create_labels_with_entries(shipment_info_frame, "Hours per Shift (hrs):", 4, 0, initial_value="0")
-        # Days in a Week Label (row 4, column 1), Days in a Week Entry (row 5, column 1)
+        # Days in a Week Label and Entry (row 4-5, column 1)
         self.days_in_week_entry = self.create_labels_with_combobox(shipment_info_frame, "Days in a Week:", 4, 1, ["5", "6", "7"], initial_value="5")
    
         # Simulate Button
@@ -76,8 +78,8 @@ class ShipmentSimulation:
         self.simulate_button.grid(row=6, column=0, columnspan=2, pady=20)
     
     def create_result_info(self):
-        """ This function will create the result information section in the GUI."""
         
+        """ This function will create the result information section in the GUI."""
         # Result Information Frame
         result_info_frame = tk.LabelFrame(self.frame, text="Result Information:", font=("Arial", 18), bg="#ffffff")
         result_info_frame.grid(row=1, column=0, sticky="news", padx=20, pady=10)
@@ -89,8 +91,8 @@ class ShipmentSimulation:
         self.completion_date_label = self.create_labels_only(result_info_frame, "Completion Date:", 4, 0)
 
     def create_labels_with_entries(self, parent, label_text, row, column, width=20, initial_value=""):
+        
         """Standard specufucations in creating labeled entry widgets"""
-
         label = tk.Label(parent, text = label_text, font = ("Arial", 12), bg="#ffffff")
         label.grid(row=row, column=column, sticky = "w", padx=10, pady=5)
         
@@ -101,6 +103,7 @@ class ShipmentSimulation:
         return entry
     
     def format_number(self, entry_var):
+       
         """Formats entry input to have commas and ensures numbers only."""
         value = entry_var.get().replace(",", "")  # Remove existing commas
         if value.isdigit():  # Only format if it's a valid number
@@ -108,6 +111,7 @@ class ShipmentSimulation:
             entry_var.set(formatted_value)
 
     def create_labels_with_combobox(self, parent, label_text, row, column, values, width=18, initial_value=None):
+       
         """Standard specifications in creating labeled combobox widgets"""
         label = tk.Label(parent, text=label_text, font=("Arial", 12), bg="#ffffff")
         label.grid(row=row, column=column, sticky="w", padx=10, pady=5)
@@ -129,22 +133,24 @@ class ShipmentSimulation:
         return date_entry
 
     def create_labels_only(self, parent, label_text, row, column):
+        
         """Standard specifications in creating labeled widgets without entry or combobox"""
         label = tk.Label(parent, text=label_text, font=("Arial", 12), bg="#ffffff")
         label.grid(row=row, column=column, sticky="w", padx=10, pady=5)
         return label
              
     def on_closing(self):
+        
         """ This function will ask the user if they want to quit the application."""
         if messagebox.askokcancel(title="Quit", message="Do you want to quit?"):
             self.main_window.destroy()
 
     def run_simulation(self):
+        
         """ This function will run the simulation and display the results."""
         
         # Validate the input fields and show error messages if any field is invalid
-        # Initialize an empty list to store error messages
-        errors = []
+        errors = [] # Initialize an empty list to store error messages
         
         product_name = self.product_name_entry.get().strip()
         if not product_name:
@@ -188,7 +194,7 @@ class ShipmentSimulation:
             if len(errors) == 1:
                 error_message = errors[0]  # Show the single error message
             else:
-                error_message = "please check your input."
+                error_message = "please check your input." # Show multiple error messages
             
             self.product_name_label.config(text="")
             self.total_days_label.config(text=f"Error: Invalid input, {error_message}")
@@ -206,13 +212,14 @@ class ShipmentSimulation:
     
 
 """ This part is the formulas for the shipment simulation calculations"""
-
 def compute_daily_output(hourly_output, hours_per_shift):
+    
     """Calculates the daily output based on the hourly output and hours per shift.
     Daily output = hourly output * hours per shift"""
     return hourly_output * hours_per_shift
 
 def compute_total_work_days(total_plan, daily_output):
+    
     """Calculates the total work days needed to complete the total plan.
     Total work days = total plan / daily output"""
 
@@ -225,6 +232,7 @@ def compute_total_work_days(total_plan, daily_output):
     return total_days
 
 def compute_end_date(start_date, total_work_days, work_days_in_a_week):
+    
     """Calculates the end date based on the start date, total work days, and the work days in a week.
     It will skip the weekends based on the work days in a week (5-day, 6-day, 7-day)."""
 
@@ -249,4 +257,4 @@ def compute_end_date(start_date, total_work_days, work_days_in_a_week):
     return current_date
 
 if __name__ =="__main__":
-    shipment_simulation = ShipmentSimulation()
+    shipment_simulation = ShipmentSimulationCalc()
